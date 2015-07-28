@@ -1,5 +1,19 @@
 var models=require('../models/models.js');
 
+//POST /quizes/create
+exports.create=function(req,res){
+	var quiz= models.Quiz.build(req.body.quiz);
+	//guarda en BD
+	quiz.save({fields:["pregunta", "respuesta"]}).then(function(){res.redirect('/quizes')})//redirecciona http url relativo lista de preguntas
+};
+
+//get Quizes new
+exports.new=function(req,res){
+	var quiz= models.Quiz.build(//crea objeto temporal quiz
+		{pregunta:"Pregunta",respuesta:"Respuesta"});
+		res.render('quizes/new'{quiz:quiz});
+};
+
 //Obtener preguntas
 exports.question=function(req,res){
 	models.Quiz.findAll().success(function(quiz){

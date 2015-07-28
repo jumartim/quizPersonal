@@ -13,4 +13,7 @@ router.get('/quizes/answer', quizController.answer);
 
 router.get('/author', quizController.author);
 
+router.get('/quizes/new', quizController.new);
+router.get('/quizes/create', quizController.create);
+
 module.exports = router;
