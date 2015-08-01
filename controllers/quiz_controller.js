@@ -20,7 +20,7 @@ exports.create=function(req, res){
 	quiz
 	.validate()
 	.then(
-		funtcion(err){
+		function(err){
 			if(err){
 				res.render('/quizes/new',{quiz: quiz, errors: err.errors});
 			}else{
@@ -37,7 +37,7 @@ exports.new=function(req, res){
 	var quiz= models.Quiz.build(//crea objeto temporal quiz
 			{pregunta:"Pregunta",respuesta:"Respuesta"}
 		);
-		res.render('quizes/new'{quiz: quiz, errors[]});
+	res.render('quizes/new',{quiz: quiz, errors:[]});
 };
 
 //Obtener preguntas
@@ -70,7 +70,7 @@ exports.show=function(req, res){
 exports.index=function(req, res){
 	models.Quiz.findAll().then(function(quizes){
 		res.render('quizes/index.ejs', {quizes: quizes, errors:[]});
-	})catch(function(error){next(error);});
+	}).catch(function(error){next(error);});
 };
 
 exports.edit=function(req, res){
@@ -101,3 +101,10 @@ exports.update= function(req, res){
 		}
 	);
 };
+
+//delete
+exports.destroy= function(req, res){
+	req.quiz.destroy().then(function(){
+		res.redirect('/quizes');
+	}).catch(function(error){next(error);});
+}
