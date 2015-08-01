@@ -4,7 +4,13 @@ var models=require('../models/models.js');
 exports.create=function(req,res){
 	var quiz= models.Quiz.build(req.body.quiz);
 	//guarda en BD
-	quiz.save({fields:["pregunta", "respuesta"]}).then(function(){res.redirect('/quizes')})//redirecciona http url relativo lista de preguntas
+	quiz.validate().then(funtcion(err){
+		if(err){
+			res.render("/quizes/new",{quiz: quiz, errors: err.errors})
+		}else{
+			quiz.save({fields:["pregunta", "respuesta"]}).then(function(){res.redirect('/quizes')})//redirecciona http url relativo lista de preguntas
+		}
+	})
 };
 
 //get Quizes new
