@@ -25,7 +25,7 @@ exports.create=function(req, res){
 				res.render('/quizes/new',{quiz: quiz, errors: err.errors});
 			}else{
 				quiz
-				.save({fields:["pregunta", "respuesta"]})
+				.save({fields:["pregunta", "respuesta", "tema"]})
 				.then(function(){res.redirect('/quizes')});//redirecciona http url relativo lista de preguntas
 			}
 		}
@@ -35,7 +35,7 @@ exports.create=function(req, res){
 //get Quizes new
 exports.new=function(req, res){
 	var quiz= models.Quiz.build(//crea objeto temporal quiz
-			{pregunta:"Pregunta",respuesta:"Respuesta"}
+			{pregunta:"Pregunta",respuesta:"Respuesta", tema: "Tema"}
 		);
 	res.render('quizes/new',{quiz: quiz, errors:[]});
 };
@@ -86,6 +86,7 @@ exports.author=function(req, res){
 exports.update= function(req, res){
 	req.quiz.pregunta = req.body.pregunta;
 	req.quiz.respuesta = req.body.respuesta;
+	req.quiz.tema = req.body.tema;
 	
 	req.quiz
 	.validate()
@@ -95,7 +96,7 @@ exports.update= function(req, res){
 				res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
 			}else{
 				req.quiz
-				.save({fields: ["pregunta", "respuesta"]})
+				.save({fields: ["pregunta", "respuesta", "tema"]})
 				.then(function(){res.redirect('/quizes');});
 			}
 		}
