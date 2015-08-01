@@ -43,7 +43,7 @@ exports.new=function(req, res){
 //Obtener preguntas
 exports.question=function(req, res){
 	models.Quiz.findAll().success(function(quiz){
-		res.render('quizes/question',{pregunta:quiz[0].pregunta});
+		res.render('quizes/question',{pregunta:quiz[0].pregunta}, errors: []);
 	});
 };
 
